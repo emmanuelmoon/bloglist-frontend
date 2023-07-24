@@ -17,6 +17,7 @@ const App = () => {
   const [url, setURL] = useState('')
 
   const [successMessage, setSuccessMessage] = useState('')
+  const [errorMessage, setErrorMessage] = useState('')
 
   useEffect(() => {
     blogService.getAll().then(blogs =>
@@ -39,19 +40,18 @@ const App = () => {
       const user = await loginService.login({
         username, password,
       })
-
       blogService.setToken(user.token)
       window.localStorage.setItem(
         'loggedBlogappuser', JSON.stringify(user)
-      )
+      ) 
       setUser(user)
       setUsername('')
       setPassword('')
     } catch (exception) {
-      // setErrorMessage('wrong credentials')
-      // setTimeout(() => {
-      //   setErrorMessage(null)
-      // })
+      setErrorMessage('wrong credentials')
+      setTimeout(() => {
+        setErrorMessage('')
+      }, 5000)
     }
   }
 
@@ -139,7 +139,7 @@ const App = () => {
 
   const logout = (event) => {
     event.preventDefault()
-    window.localStorage.removeItem('loggedBlogappuse')
+    window.localStorage.removeItem('loggedBlogappuser')
     setUser(null)
     setUsername('')
     setPassword('')
@@ -149,6 +149,7 @@ const App = () => {
     return (
       <div>
         <h2>Log in to application</h2>
+      <Notification message={errorMessage} messageClass='error' />
         {loginForm()}
       </div>
     )
