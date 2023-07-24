@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import Blog from './components/Blog'
 import blogService from './services/blogs'
 import loginService from './services/login'
+import Notification from './components/Notification'
 
 const App = () => {
   const [blogs, setBlogs] = useState([])
@@ -15,6 +16,8 @@ const App = () => {
   const [author, setAuthor] = useState('')
   const [url, setURL] = useState('')
 
+  const [successMessage, setSuccessMessage] = useState('')
+
   useEffect(() => {
     blogService.getAll().then(blogs =>
       setBlogs( blogs )
@@ -22,7 +25,7 @@ const App = () => {
   }, [])
 
   useEffect(() => {
-    const loggedUserJSON = window.localStorage.getItem('loggedBlogappUser')
+    const loggedUserJSON = window.localStorage.getItem('loggedBlogappuser')
     if (loggedUserJSON) {
       const user = JSON.parse(loggedUserJSON)
       setUser(user)
@@ -39,7 +42,7 @@ const App = () => {
 
       blogService.setToken(user.token)
       window.localStorage.setItem(
-        'loggedBlogappuse', JSON.stringify(user)
+        'loggedBlogappuser', JSON.stringify(user)
       )
       setUser(user)
       setUsername('')
@@ -85,6 +88,11 @@ const App = () => {
 
       const returnedBlog = await blogService.create(blog)
       setBlogs(blogs.concat(returnedBlog))
+
+      setSuccessMessage(`a new blog ${title} by ${author} added`)
+      setTimeout(() => {
+        setSuccessMessage('')
+      }, 5000)
       setTitle('')
       setAuthor('')
       setURL('')
@@ -149,6 +157,7 @@ const App = () => {
   return (
     <div>
       <h2>blogs</h2>
+      <Notification message={successMessage} messageClass='success' />
       <p>{user.name} logged in</p>
       <form onSubmit={logout}>
         <button type="submit">logout</button>
