@@ -77,14 +77,13 @@ const App = () => {
     </form>
   )
 
-  
-
   const blogFormRef = useRef()
 
   const handleAddBlog = async (blog) => {
     try {
       blogFormRef.current.toggleVisibility()
       const returnedBlog = await blogService.create(blog)
+      console.log(returnedBlog)
       setBlogs(blogs.concat(returnedBlog))
 
       setSuccessMessage(`a new blog ${returnedBlog.title} by ${returnedBlog.author} added`)
@@ -135,7 +134,7 @@ const App = () => {
       <h2>create new</h2>
       {addBlog()}
       {blogs.map(blog =>
-        <Blog key={blog.id} blog={blog} />
+        <Blog key={blog.id} blog={blog} user={user}/>
       )}
     </div>
   )
