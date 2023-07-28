@@ -63,6 +63,16 @@ const App = () => {
     }
   }
 
+  const deleteBlog = async (id) => {
+    try {
+      const response = await blogService.deleteBlog(id)
+      console.log(response)
+      setBlogs(blogs.filter((blog) => blog.id !== id))
+    } catch (e) {
+      console.error(e)
+    }
+  }
+
   const loginForm = () => (
     <form onSubmit={handleLogin}>
       <div>
@@ -148,7 +158,7 @@ const App = () => {
       <h2>create new</h2>
       {addBlog()}
       {blogs.sort(compareFn).map(blog =>
-        <Blog key={blog.id} blog={blog} user={user} likePost={increaseLike}/>
+        <Blog key={blog.id} blog={blog} user={user} likeBlog={increaseLike} removeBlog={deleteBlog}/>
       )}
     </div>
   )
