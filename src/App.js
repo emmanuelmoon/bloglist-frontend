@@ -132,6 +132,10 @@ const App = () => {
     )
   }
 
+  const compareFn = (a, b) => {
+    return b.likes - a.likes
+  }
+
   return (
     <div>
       <h2>blogs</h2>
@@ -143,7 +147,7 @@ const App = () => {
 
       <h2>create new</h2>
       {addBlog()}
-      {blogs.map(blog =>
+      {blogs.sort(compareFn).map(blog =>
         <Blog key={blog.id} blog={blog} user={user} likePost={increaseLike}/>
       )}
     </div>
