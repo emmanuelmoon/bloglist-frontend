@@ -56,7 +56,6 @@ const App = () => {
   const increaseLike = async (updatedBlog) => {
     try {
       const response = await blogService.update(updatedBlog)
-      console.log(response)
       setBlogs(blogs.map((blog) => blog.id === updatedBlog.id ? response : blog))
     } catch (e) {
       console.error(e)
@@ -65,8 +64,7 @@ const App = () => {
 
   const deleteBlog = async (id) => {
     try {
-      const response = await blogService.deleteBlog(id)
-      console.log(response)
+      await blogService.deleteBlog(id)
       setBlogs(blogs.filter((blog) => blog.id !== id))
     } catch (e) {
       console.error(e)

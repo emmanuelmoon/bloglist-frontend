@@ -32,8 +32,12 @@ const Blog = ({ blog, user, likeBlog, removeBlog }) => {
     likeBlog(updatedBlog)
   }
 
-  const deleteBlog = (id) => {
-    removeBlog(id)
+  const deleteBlog = (blog) => {
+    const username = blog.user.username !== undefined ? blog.user.username: user.username
+    if((username === user.username) && window.confirm(`Remove blog ${blog.title} by ${blog.author}?`)){
+      removeBlog(blog.id)
+    }
+
   }
 
   return(
@@ -44,7 +48,7 @@ const Blog = ({ blog, user, likeBlog, removeBlog }) => {
       <a href={blog.url}>{blog.url}</a> <br />
       likes {blog.likes} <button onClick={() => increaseLike(blog)}>like</button> <br />
       {blog.user.name === undefined ? user.name: blog.user.name} <br />
-      <button onClick={() => deleteBlog(blog.id)}>remove</button>
+      <button onClick={() => deleteBlog(blog)}>remove</button>
     </div>
   </div>)
 }
