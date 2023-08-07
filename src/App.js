@@ -20,7 +20,7 @@ const App = () => {
   useEffect(() => {
     blogService.getAll().then(blogs =>
       setBlogs( blogs )
-    )  
+    )
   }, [])
 
   useEffect(() => {
@@ -41,7 +41,7 @@ const App = () => {
       blogService.setToken(user.token)
       window.localStorage.setItem(
         'loggedBlogappuser', JSON.stringify(user)
-      ) 
+      )
       setUser(user)
       setUsername('')
       setPassword('')
@@ -76,19 +76,19 @@ const App = () => {
       <div>
         username
         <input
-        type="text"
-        value={username}
-        name="Username"
-        onChange={({ target }) => setUsername(target.value)}
+          type="text"
+          value={username}
+          name="Username"
+          onChange={({ target }) => setUsername(target.value)}
         />
       </div>
       <div>
         password
         <input
-        type="password"
-        value={password}
-        name="Password"
-        onChange={({ target }) => setPassword(target.value)}
+          type="password"
+          value={password}
+          name="Password"
+          onChange={({ target }) => setPassword(target.value)}
         />
       </div>
       <button type="submit">login</button>
@@ -116,7 +116,7 @@ const App = () => {
     }
   }
 
-  const addBlog = (event) => (
+  const addBlog = () => (
     <Togglable buttonLabel='add blog' ref={blogFormRef}>
       <BlogForm addBlog={handleAddBlog}/>
     </Togglable>
@@ -134,7 +134,7 @@ const App = () => {
     return (
       <div>
         <h2>Log in to application</h2>
-      <Notification message={errorMessage} messageClass='error' />
+        <Notification message={errorMessage} messageClass='error' />
         {loginForm()}
       </div>
     )
