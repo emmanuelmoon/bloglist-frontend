@@ -48,7 +48,7 @@ const Blog = ({ blog, user, likeBlog, removeBlog }) => {
         <a href={blog.url}>{blog.url}</a> <br />
       likes {blog.likes} <button id='like' onClick={() => increaseLike(blog)}>like</button> <br />
         {blog.user.name === undefined ? user.name: blog.user.name} <br />
-        <button onClick={() => deleteBlog(blog)}>remove</button>
+        <button id='delete' onClick={() => deleteBlog(blog)}>remove</button>
       </div>
     </div>)
 }

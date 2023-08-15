@@ -70,11 +70,17 @@ describe('Blog app', function () {
 
           cy.get('#submit-button').click()
         })
+
         it('users can like a blog', function() {
           cy.get('#view').click()
           cy.get('#like').click()
 
           cy.contains('likes 1')
+        })
+        it('user who created the blog can delete it', function() {
+          cy.get('#view').click()
+          cy.get('#delete').click()
+          cy.contains('Get Rich Moon').should('not.exist')
         })
       })
     })
