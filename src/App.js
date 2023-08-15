@@ -55,7 +55,10 @@ const App = () => {
 
   const increaseLike = async (updatedBlog) => {
     try {
+      const user = updatedBlog.user
       const response = await blogService.update(updatedBlog)
+      response.user = user
+      console.log(response)
       setBlogs(blogs.map((blog) => blog.id === updatedBlog.id ? response : blog))
     } catch (e) {
       console.error(e)

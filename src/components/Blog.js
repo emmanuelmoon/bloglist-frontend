@@ -22,7 +22,7 @@ const Blog = ({ blog, user, likeBlog, removeBlog }) => {
   const increaseLike = (blog) => {
     console.log(blog)
     const updatedBlog = {
-      user: blog.user.id !== undefined ? blog.user.id: user.id,
+      user: blog.user,
       id: blog.id,
       likes: blog.likes + 1,
       author: blog.author,
@@ -52,7 +52,7 @@ const Blog = ({ blog, user, likeBlog, removeBlog }) => {
       <div style={allVisible} className='blogInside'>
         <a href={blog.url}>{blog.url}</a> <br />
       likes {blog.likes} <button id='like' onClick={() => increaseLike(blog)}>like</button> <br />
-        {blog.user.name} <br />
+        {blog.user.name } <br />
         {removeButton()}
       </div>
     </div>)

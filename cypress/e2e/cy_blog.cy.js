@@ -95,8 +95,49 @@ describe('Blog app', function () {
           cy.get('#password').type('aspirine')
           cy.get('#login-button').click()
 
+          cy.wait(1000)
+
           cy.get('#view').click()
           cy.contains('remove').should('not.exist')
+        })
+      })
+      describe('when multiple blogs are present', function() {
+        beforeEach(function() {
+          const title = 'Get Rich'
+          const author = 'Moon'
+          const url = 'http://www.example.com'
+          cy.get('#add-blog').click()
+          cy.get('#title').type(title)
+          cy.get('#author').type(author)
+          cy.get('#url').type(url)
+
+          cy.get('#submit-button').click()
+
+          cy.wait(5000)
+
+          cy.get('#add-blog').click()
+          cy.get('#title').type('Get Poor')
+          cy.get('#author').type(author)
+          cy.get('#url').type(url)
+
+          cy.get('#submit-button').click()
+        })
+
+        it.only('contains both blogs', function() {
+          cy.contains('Get Rich Moon').as('blog1')
+          cy.contains('Get Poor Moon').as('blog2')
+          cy.get('@blog1').contains('view').click()
+          cy.get('@blog1').contains('like').click()
+          cy.wait(500)
+          cy.get('@blog1').contains('like').click()
+          cy.wait(500)
+
+          cy.get('@blog2').contains('view').click()
+          cy.wait(500)
+          cy.get('@blog2').contains('like').click()
+
+          cy.get('.blog').eq(0).should('contain', 'Get Rich')
+          cy.get('.blog').eq(1).should('contain', 'Get Poor')
         })
       })
     })
