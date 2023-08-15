@@ -35,5 +35,28 @@ describe('Blog app', function () {
       cy.get('.error').should('contain', 'wrong credentials')
       cy.get('.error').should('have.css', 'color','rgb(255, 0, 0)')
     })
+
+    describe('When logged in', function() {
+      beforeEach(function() {
+        cy.get('#username').type('moon')
+        cy.get('#password').type('aspirine')
+        cy.get('#login-button').click()
+      })
+
+      it('A blog can be created', function() {
+        const title = 'Get Rich'
+        const author = 'Moon'
+        const url = 'http://www.example.com'
+        cy.get('#add-blog').click()
+        cy.get('#title').type(title)
+        cy.get('#author').type(author)
+        cy.get('#url').type(url)
+
+        cy.get('#submit-button').click()
+
+        cy.contains(`a new blog ${title} by ${author} added`)
+        cy.contains(`${title} ${author}`)
+      })
+    })
   })
 })
