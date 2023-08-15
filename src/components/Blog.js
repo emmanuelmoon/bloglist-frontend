@@ -43,10 +43,10 @@ const Blog = ({ blog, user, likeBlog, removeBlog }) => {
   return(
     <div style={blogStyle} className='blog'>
       {blog.title} {blog.author} {' '}
-      <button onClick={toggleVisibility} className='toggleVisibility'>{buttonText}</button>
+      <button id='view' onClick={toggleVisibility} className='toggleVisibility'>{buttonText}</button>
       <div style={allVisible} className='blogInside'>
         <a href={blog.url}>{blog.url}</a> <br />
-      likes {blog.likes} <button onClick={() => increaseLike(blog)}>like</button> <br />
+      likes {blog.likes} <button id='like' onClick={() => increaseLike(blog)}>like</button> <br />
         {blog.user.name === undefined ? user.name: blog.user.name} <br />
         <button onClick={() => deleteBlog(blog)}>remove</button>
       </div>

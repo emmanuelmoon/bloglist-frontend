@@ -57,6 +57,26 @@ describe('Blog app', function () {
         cy.contains(`a new blog ${title} by ${author} added`)
         cy.contains(`${title} ${author}`)
       })
+
+      describe('when a blog is present', function() {
+        beforeEach(function() {
+          const title = 'Get Rich'
+          const author = 'Moon'
+          const url = 'http://www.example.com'
+          cy.get('#add-blog').click()
+          cy.get('#title').type(title)
+          cy.get('#author').type(author)
+          cy.get('#url').type(url)
+
+          cy.get('#submit-button').click()
+        })
+        it('users can like a blog', function() {
+          cy.get('#view').click()
+          cy.get('#like').click()
+
+          cy.contains('likes 1')
+        })
+      })
     })
   })
 })
