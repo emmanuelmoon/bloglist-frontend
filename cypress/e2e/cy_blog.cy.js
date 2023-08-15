@@ -82,6 +82,22 @@ describe('Blog app', function () {
           cy.get('#delete').click()
           cy.contains('Get Rich Moon').should('not.exist')
         })
+        it.only('only creator can see delete button', function() {
+          const user = {
+            username: 'mona',
+            name: 'Mona',
+            password: 'aspirine'
+          }
+          cy.request('POST', 'http://localhost:3003/api/users', user)
+          cy.get('#logout').click()
+
+          cy.get('#username').type('mona')
+          cy.get('#password').type('aspirine')
+          cy.get('#login-button').click()
+
+          cy.get('#view').click()
+          cy.contains('remove').should('not.exist')
+        })
       })
     })
   })

@@ -33,11 +33,16 @@ const Blog = ({ blog, user, likeBlog, removeBlog }) => {
   }
 
   const deleteBlog = (blog) => {
-    const username = blog.user.username !== undefined ? blog.user.username: user.username
-    if((username === user.username) && window.confirm(`Remove blog ${blog.title} by ${blog.author}?`)){
+    if((blog.user.username === user.username) && window.confirm(`Remove blog ${blog.title} by ${blog.author}?`)){
       removeBlog(blog.id)
     }
 
+  }
+
+  const removeButton = () => {
+    if (blog.user.username === user.username) {
+      return <button id='delete' onClick={() => deleteBlog(blog)}>remove</button>
+    }
   }
 
   return(
@@ -47,8 +52,8 @@ const Blog = ({ blog, user, likeBlog, removeBlog }) => {
       <div style={allVisible} className='blogInside'>
         <a href={blog.url}>{blog.url}</a> <br />
       likes {blog.likes} <button id='like' onClick={() => increaseLike(blog)}>like</button> <br />
-        {blog.user.name === undefined ? user.name: blog.user.name} <br />
-        <button id='delete' onClick={() => deleteBlog(blog)}>remove</button>
+        {blog.user.name} <br />
+        {removeButton()}
       </div>
     </div>)
 }

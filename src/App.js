@@ -103,6 +103,7 @@ const App = () => {
     try {
       blogFormRef.current.toggleVisibility()
       const returnedBlog = await blogService.create(blog)
+      returnedBlog.user = user
       console.log(returnedBlog)
       setBlogs(blogs.concat(returnedBlog))
 
@@ -152,7 +153,7 @@ const App = () => {
       <Notification message={successMessage} messageClass='success' />
       <p>{user.name} logged in</p>
       <form onSubmit={logout}>
-        <button type="submit">logout</button>
+        <button id='logout' type="submit">logout</button>
       </form>
 
       <h2>create new</h2>
