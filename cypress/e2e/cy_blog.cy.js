@@ -82,7 +82,7 @@ describe('Blog app', function () {
           cy.get('#delete').click()
           cy.contains('Get Rich Moon').should('not.exist')
         })
-        it.only('only creator can see delete button', function() {
+        it('only creator can see delete button', function() {
           const user = {
             username: 'mona',
             name: 'Mona',

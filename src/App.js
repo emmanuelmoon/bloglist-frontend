@@ -103,7 +103,7 @@ const App = () => {
     try {
       blogFormRef.current.toggleVisibility()
       const returnedBlog = await blogService.create(blog)
-      returnedBlog.user = user
+      returnedBlog['user'] = user
       console.log(returnedBlog)
       setBlogs(blogs.concat(returnedBlog))
 
